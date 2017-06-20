@@ -1,0 +1,56 @@
+
+//Just reads some pins and gives an output out of other pins in response.
+//Used in the context of a breadboard and some lights and buttons.
+
+
+int firstPin = A3;
+int secondPin = A2;
+int inPin = A1;
+int counter = 0;
+int stat = 0;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(firstPin,OUTPUT);
+  pinMode(secondPin,OUTPUT);
+  pinMode(inPin,INPUT);
+}
+
+void loop() {
+  if(!analogRead(inPin))
+  {
+    stat = 0;
+  }
+  else if (analogRead(inPin) > 100){
+    stat = 1;
+  }
+  else{
+    stat = 0;
+    analogWrite(firstPin,0);
+    analogWrite(secondPin,0);
+  }
+  if(stat == 1)
+  {
+    if(counter % 2 == 0)
+    {
+     analogWrite(firstPin,255);
+     analogWrite(secondPin,0);
+    }
+    else{
+      analogWrite(secondPin,255);
+      analogWrite(firstPin,0);
+    }
+    counter++;
+    delay(100);
+  }
+  else if (stat == 0) {
+    analogWrite(firstPin,0);
+    analogWrite(secondPin,0);
+  }
+  else {
+     analogWrite(firstPin,0);
+    analogWrite(secondPin,0);
+  }
+
+  delay(100);
+ 
+}
